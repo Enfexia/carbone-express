@@ -1,6 +1,6 @@
 {
   "name": "@enfexia/carbone-express",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Express API for calling Carbone with a file caching layer.",
   "main": "index.js",
   "directories": {

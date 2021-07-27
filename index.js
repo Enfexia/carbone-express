@@ -28,6 +28,8 @@ const DEFAULT_OPTIONS = {
 
 let fileCache;
 let mountPath = "/";
+let templates = [];
+let files = [];
 
 const truthy = (name, obj = {}) => {
   const value = obj[name] || false;
@@ -177,6 +179,7 @@ router.post("/template", fileUpload.upload, async (req, res) => {
     return new Problem(result.errorType, { detail: result.errorMsg }).send(res);
   } else {
     res.setHeader("X-Template-Hash", result.hash);
+    templates.push({hash: result.hash, filename:req.file.originalname})
     return res.send(result.hash);
   }
 });
@@ -228,6 +231,10 @@ router.post(
     return await findAndRender(hash, req, res);
   }
 );
+
+router.get("/templates", async (req, res) => {
+  res.status(200).json(templates);
+});
 
 router.get("/template/:uid", async (req, res) => {
   const hash = req.params.uid;
