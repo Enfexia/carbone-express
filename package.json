@@ -1,6 +1,5 @@
 {
   "_from": "@enfexia/carbone-express@latest",
-  "_id": "@enfexia/carbone-express@0.0.3",
   "_inBundle": false,
   "_integrity": "sha512-eIAJoqCSqQo9TtCb1FuVIrtqtOK7sTpKhc6C3wPzsIBMW6M11Qbylu4P7o/QJTu10PWYAsgIrts27qxA/NyCSw==",
   "_location": "/@enfexia/carbone-express",
@@ -23,27 +22,14 @@
   "_shasum": "5834b047ac9ec2fef3c072bf06cba0def40f9c6a",
   "_spec": "@enfexia/carbone-express@latest",
   "_where": "C:\\Users\\regis\\Desktop\\carboneExpressTest",
-  "author": {
-    "name": "NR Common Service Showcase",
-    "email": "NR.CommonServiceShowcase@gov.bc.ca"
-  },
+  "author": "NR Common Service Showcase <NR.CommonServiceShowcase@gov.bc.ca>",
   "bugs": {
     "url": "https://github.com/bcgov/common-services-team-library/issues"
   },
-  "bundleDependencies": false,
   "contributors": [
-    {
-      "name": "Jason Sherman",
-      "email": "jsherman@parcsystems.ca"
-    },
-    {
-      "name": "Jeremy Ho",
-      "email": "jujaga@gmail.com"
-    },
-    {
-      "name": "Tim Csaky",
-      "email": "tim.csaky@gov.bc.ca"
-    }
+    "Jason Sherman <jsherman@parcsystems.ca>",
+    "Jeremy Ho <jujaga@gmail.com>",
+    "Tim Csaky <tim.csaky@gov.bc.ca>"
   ],
   "dependencies": {
     "@bcgov/file-cache": "^1.0.5",
@@ -84,5 +70,5 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "0.0.3"
+  "version": "0.0.6"
 }

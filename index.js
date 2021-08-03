@@ -247,50 +247,51 @@ router.post(
   async (req, res) => {
     const hash = req.params.uid;
     console.log(`Template render ${hash}.`);
-    Reports.findOne({uid: req.params.uid}, function (err, reports) {
-      
-      reports.report.push(new Report({
-        title: "Document",
-        uid: "X",
-        filename: "Document",
-        date: new Date(),
-        totalDownloads: 0,
-        fileSize: 0,
-        averageGenerationTime: 0,
-      }))
-  
+    Reports.findOne({ uid: req.params.uid }, function (err, reports) {
+      reports.report.push(
+        new Report({
+          title: "Document",
+          uid: "X",
+          filename: "Document",
+          date: new Date(),
+          totalDownloads: 0,
+          fileSize: 0,
+          averageGenerationTime: 0,
+        })
+      );
+
       reports.save(function (err) {
-          if(err) {
-              console.error('ERROR!');
-          }
+        if (err) {
+          console.error("ERROR!");
+        }
       });
-  });
+    });
     return await findAndRender(hash, req, res);
   }
 );
 
 router.get("/reports", async (req, res) => {
-  Reports.find({}, function(err, reports) {
+  Reports.find({}, function (err, reports) {
     reportList = [];
-    reports.forEach(oR => {
-      if(oR.report.length > 0){
-        oR.report.forEach(s => {
+    reports.forEach((oR) => {
+      if (oR.report.length > 0) {
+        oR.report.forEach((s) => {
           reportList.push(s);
-        })
+        });
       }
-    })
+    });
     res.status(200).json(reportList);
   });
 });
 
 router.get("/templates", async (req, res) => {
-  Reports.find({}, function(err, reports) {
+  Reports.find({}, function (err, reports) {
     res.status(200).json(reports);
   });
 });
 
-router.get("/template/:uid", async (req, res) => {
-  Reports.findOne({uid:req.params.uid}, function(err, reports) {
+router.get("/template/:uid/reports", async (req, res) => {
+  Reports.findOne({ uid: req.params.uid }, function (err, reports) {
     res.status(200).json(reports);
   });
 });
