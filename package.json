@@ -62,7 +62,7 @@
   ],
   "license": "Apache-2.0",
   "main": "index.js",
-  "name": "@enfeixa/carbone-express",
+  "name": "@enfexia/carbone-express",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bcgov/common-services-team-library.git"
