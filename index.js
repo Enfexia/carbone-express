@@ -291,8 +291,8 @@ router.get("/templates", async (req, res) => {
 });
 
 router.get("/template/:uid/reports", async (req, res) => {
-  Reports.findOne({ uid: req.params.uid }, function (err, reports) {
-    res.status(200).json(reports);
+  Report.findOne({ uid: req.params.uid }, function (err, report) {
+    res.status(200).json(report);
   });
 });
 
