@@ -62,7 +62,7 @@
   ],
   "license": "Apache-2.0",
   "main": "index.js",
-  "name": "@enfexia/carbone-express",
+  "name": "@enfeixa/carbone-express",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bcgov/common-services-team-library.git"
@@ -70,5 +70,5 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "0.0.7"
+  "version": "0.0.9"
 }

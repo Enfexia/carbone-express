@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 module.exports = () => {
-  mongoose.connect("mongodb://localhost:27017/forge", {
+  mongoose.connect("mongodb://db:27017/forge", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
