@@ -8,6 +8,9 @@ const _ = require("lodash");
 
 const fileUpload = require("./upload");
 const validation = require("./validation");
+const db = require("./database")();
+const Reports = require("./models/reports");
+const Report = require("./models/report");
 
 const carboneRenderer = require("@enfexia/carbone-render");
 const FileCache = require("@bcgov/file-cache");
@@ -29,7 +32,6 @@ const DEFAULT_OPTIONS = {
 let fileCache;
 let mountPath = "/";
 let templates = [];
-let files = [];
 
 const truthy = (name, obj = {}) => {
   const value = obj[name] || false;
@@ -179,7 +181,24 @@ router.post("/template", fileUpload.upload, async (req, res) => {
     return new Problem(result.errorType, { detail: result.errorMsg }).send(res);
   } else {
     res.setHeader("X-Template-Hash", result.hash);
-    templates.push({hash: result.hash, filename:req.file.originalname})
+    new Reports({
+      title: req.file.originalname,
+      date: new Date(Date.now()),
+      uid: result.hash,
+      filename: req.file.originalname,
+      totalGeneratedReports: 0,
+      fileSize: 1,
+      averageGenerationTime: 1,
+      report: [],
+    })
+      .save()
+      .then(() => {
+        console.log("Success.");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    templates.push({ hash: result.hash, filename: req.file.originalname });
     return res.send(result.hash);
   }
 });
@@ -228,12 +247,52 @@ router.post(
   async (req, res) => {
     const hash = req.params.uid;
     console.log(`Template render ${hash}.`);
+    Reports.findOne({uid: req.params.uid}, function (err, reports) {
+      
+      reports.report.push(new Report({
+        title: "Document",
+        uid: "X",
+        filename: "Document",
+        date: new Date(),
+        totalDownloads: 0,
+        fileSize: 0,
+        averageGenerationTime: 0,
+      }))
+  
+      reports.save(function (err) {
+          if(err) {
+              console.error('ERROR!');
+          }
+      });
+  });
     return await findAndRender(hash, req, res);
   }
 );
 
+router.get("/reports", async (req, res) => {
+  Reports.find({}, function(err, reports) {
+    reportList = [];
+    reports.forEach(oR => {
+      if(oR.report.length > 0){
+        oR.report.forEach(s => {
+          reportList.push(s);
+        })
+      }
+    })
+    res.status(200).json(reportList);
+  });
+});
+
 router.get("/templates", async (req, res) => {
-  res.status(200).json(templates);
+  Reports.find({}, function(err, reports) {
+    res.status(200).json(reports);
+  });
+});
+
+router.get("/template/:uid", async (req, res) => {
+  Reports.findOne({uid:req.params.uid}, function(err, reports) {
+    res.status(200).json(reports);
+  });
 });
 
 router.get("/template/:uid", async (req, res) => {
